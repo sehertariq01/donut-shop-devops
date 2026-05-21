@@ -12,7 +12,7 @@ pipeline {
         // Docker image configuration
         DOCKER_IMAGE = 'donut-shop'
         DOCKER_TAG = "${BUILD_NUMBER}"
-        DOCKERHUB_USERNAME = credentials('sehar123')
+        DOCKERHUB_USERNAME = 'sehar123'
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
 
         // Kubernetes namespace
@@ -132,7 +132,7 @@ pipeline {
             echo 'Pipeline failed. Check Jenkins console output for details.'
         }
         always {
-            cleanWs()
+            echo 'Workspace cleanup skipped.'
         }
     }
 }
