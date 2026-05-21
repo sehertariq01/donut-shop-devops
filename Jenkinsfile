@@ -6,11 +6,11 @@ pipeline {
 
     environment {
         // GitHub repository URL - update with your repo
-        GIT_REPO = 'https://github.com/YOUR_USERNAME/donut-shop.git'
-        GIT_BRANCH = 'main'
+        GIT_REPO = 'https://github.com/sehertariq01/donut-shop-devops.git'
+        GIT_BRANCH = 'master'
 
         // Docker image configuration
-        DOCKER_IMAGE = 'donut-shop'
+        DOCKER_IMAGE = 'sehar123/donut-shop'
         DOCKER_TAG = "${BUILD_NUMBER}"
         DOCKERHUB_USERNAME = credentials('dockerhub-username')
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')

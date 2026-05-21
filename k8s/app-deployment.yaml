@@ -21,7 +21,7 @@ spec:
       containers:
         - name: donut-app
           # Replace YOUR_DOCKERHUB_USERNAME with your Docker Hub username
-          image: YOUR_DOCKERHUB_USERNAME/donut-shop:latest
+          image: sehar123/donut-shop:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 80
