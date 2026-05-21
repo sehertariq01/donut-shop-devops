@@ -1,0 +1,74 @@
+# Donut Shop Management System - Local Development Stack
+version: '3.8'
+
+services:
+  # PHP Apache application
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: donut-shop-app
+    ports:
+      - "8080:80"
+    environment:
+      HOST: mysql
+      USER: donut_user
+      PASSWORD: donut_pass
+      DATABASE: donutdb
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - donut-network
+    restart: unless-stopped
+
+  # MySQL database with persistent volume
+  mysql:
+    image: mysql:8.0
+    container_name: donut-shop-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: donutdb
+      MYSQL_USER: donut_user
+      MYSQL_PASSWORD: donut_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-prootpassword"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - donut-network
+    restart: unless-stopped
+
+  # phpMyAdmin for database management
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: donut-shop-phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_USER: donut_user
+      PMA_PASSWORD: donut_pass
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "8081:80"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - donut-network
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  donut-network:
+    driver: bridge

@@ -1,0 +1,9 @@
+.git
+.gitignore
+README.md
+screenshots/
+k8s/
+monitoring/
+Jenkinsfile
+docker-compose.yml
+sql/
