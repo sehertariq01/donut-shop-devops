@@ -10,9 +10,9 @@ pipeline {
         GIT_BRANCH = 'master'
 
         // Docker image configuration
-        DOCKER_IMAGE = 'sehar123/donut-shop'
+        DOCKER_IMAGE = 'donut-shop'
         DOCKER_TAG = "${BUILD_NUMBER}"
-        DOCKERHUB_USERNAME = credentials('dockerhub-username')
+        DOCKERHUB_USERNAME = credentials('sehar123')
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
 
         // Kubernetes namespace
